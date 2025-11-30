@@ -5,7 +5,7 @@ import { Loader2Icon, Calendar, Users2Icon } from "lucide-react";
 import { useGetEvents } from "../hook/useEvent";
 import { timezones } from "../utils/timezones";
 import { useProfileStore } from "../hook/useProfileStore";
-import { useTimezoneStore } from "../hook/useTimezoneStore";
+import { useTimezoneStore } from "../hook/useTimeZoneStore";
 import { convertUtcToTimezone } from "../utils/convertTime";
 
 function EventList() {
