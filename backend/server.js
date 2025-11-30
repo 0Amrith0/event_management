@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import path from "path";
 
 import { connectDB } from "./config/db.js";
-import eventRoutes from "./routes/eventRoutes.js";
-import profileRoutes from "./routes/profileRoutes.js";
+import eventRoutes from "./src/routes/eventRoutes.js";
+import profileRoutes from "./src/routes/profileRoutes.js";
 
 
 dotenv.config();
@@ -25,7 +25,7 @@ app.use("/api/events", eventRoutes);
 app.use("/api/profile", profileRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend", "dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
