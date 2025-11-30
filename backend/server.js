@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import path from "path";
 
 import { connectDB } from "./config/db.js";
-import eventRoutes from "./src/routes/eventRoutes.js";
-import profileRoutes from "./src/routes/profileRoutes.js";
+import eventRoutes from "./routes/eventRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 
 
 dotenv.config();
