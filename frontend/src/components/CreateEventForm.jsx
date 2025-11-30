@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react";
 
 import { timezones } from "../utils/timezones";
 import { useCreateEvent } from "../hook/useEvent";
-import { useTimezoneStore } from "../hook/useTimezoneStore";
+import { useTimezoneStore } from "../hook/useTimeZoneStore";
 import { useGetAllProfiles, useCreateProfile } from "../hook/useProfile";
 
 function CreateEventForm() {
