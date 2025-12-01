@@ -38,8 +38,19 @@ export async function newEvent(req, res) {
     try {
         const { profiles, selectedTimezone, startDate, startTime, endDate, endTime } = req.body;
 
+        if (!profiles || profiles.length === 0) {
+            return res.status(400).json({ message: "Select at least one profile" });
+        }
+
         if (!profiles || !selectedTimezone || !startDate || !startTime || !endDate || !endTime) {
             return res.status(400).json({ message: "All fields are required" });
+        }
+
+        const start = new Date(`${startDate}T${startTime}`);
+        const end = new Date(`${endDate}T${endTime}`);
+
+        if (end <= start) {
+            return res.status(400).json({ message: "End date & time must be after start date & time" });
         }
 
         const startUtc = toUtc(startDate, startTime, selectedTimezone);
@@ -74,6 +85,18 @@ export async function updateEvent(req, res) {
         if (!event) return res.status(404).send("Event not found");
 
         const update = req.body;
+
+        const { profiles } = update;
+        if (!profiles || profiles.length === 0) {
+            return res.status(400).json({ message: "Select at least one profile" });
+        }
+
+        const start = new Date(`${update.startDate}T${update.startTime}`);
+        const end = new Date(`${update.endDate}T${update.endTime}`);
+
+        if (end <= start) {
+            return res.status(400).json({ message: "End date & time must be after start date & time" });
+        }
 
         if (update.startDate && update.startTime && update.selectedTimezone) {
             update.startUtc = toUtc(update.startDate, update.startTime, update.selectedTimezone);

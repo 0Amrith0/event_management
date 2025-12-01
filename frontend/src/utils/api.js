@@ -6,6 +6,7 @@ export const addNewProfile = async (add) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error adding profile");
+        throw error;
     }
 
 };
@@ -16,6 +17,7 @@ export const getProfile = async (profileId) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error fetching profile");
+        throw error;
     }
 };
 
@@ -25,6 +27,7 @@ export const getAllProfiles = async () => {
         return res.data;
     } catch (error) {
         console.log(error, "Error fetching profiles");
+        throw error;
     }
 };
 
@@ -34,6 +37,7 @@ export const getEvents = async (profileId) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error fetching events");
+        throw error;
     }
 }
 
@@ -43,6 +47,7 @@ export const getEvent = async (eventId) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error fetching events");
+        throw error;
     }
 
 };
@@ -53,6 +58,7 @@ export const addNewEvent = async (eventData) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error adding new event");
+        throw error;
     }
 };
 
@@ -62,5 +68,6 @@ export const updateEvent = async (eventId, updateData) => {
         return res.data;
     } catch (error) {
         console.log(error, "Error updating event");
+        throw error;
     }
 }

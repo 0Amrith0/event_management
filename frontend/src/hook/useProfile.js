@@ -1,5 +1,6 @@
 import { addNewProfile, getProfile, getAllProfiles } from "../utils/api";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 
 export const useGetAllProfiles = () => {
@@ -7,6 +8,9 @@ export const useGetAllProfiles = () => {
         queryKey: ["profiles"],
         queryFn: getAllProfiles,
         retry: 2,
+        onError: () => {
+            toast.error("Failed to load profiles");
+        }
     });
 
     return { ...profiles, isLoading: profiles.isLoading };
@@ -18,6 +22,9 @@ export const useGetProfile = (profileId) => {
         queryFn: () => getProfile(profileId),
         enabled: !!profileId,
         retry: 2,
+        onError: () => {
+            toast.error("Failed to load selected profile");
+        }
     });
     return { ...profile, isLoading: profile.isLoading };
 }
@@ -29,7 +36,11 @@ export const useCreateProfile = () => {
     const { mutate, isPending, error } = useMutation({
         mutationFn: addNewProfile,
         onSuccess: () => {
+            toast.success("Profile created successfully!");
             queryClient.invalidateQueries("profiles");
+        },
+        onError: (error) => {
+            toast.error( error?.response?.data?.message || "Could not create profile" );
         }
     });
 

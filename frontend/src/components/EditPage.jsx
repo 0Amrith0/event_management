@@ -53,7 +53,6 @@ function EditPage() {
 
     const handleUpdate = () => {
         updateEvent({ eventId, updateData: formData });
-        console.log("🔵 SENDING UPDATE:", formData);
         navigate("/");
     };
 

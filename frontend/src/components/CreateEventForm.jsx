@@ -1,18 +1,21 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { ChevronDown } from "lucide-react";
 
 import { timezones } from "../utils/timezones";
 import { useCreateEvent } from "../hook/useEvent";
+import { useProfileStore } from "../hook/useProfileStore";
 import { useTimezoneStore } from "../hook/useTimeZoneStore";
 import { useGetAllProfiles, useCreateProfile } from "../hook/useProfile";
 
 function CreateEventForm() {
 
+  const activeProfileId = useProfileStore((state) => state.activeProfileId);
+  const setActiveTimezone = useTimezoneStore((state) => state.setActiveTimezone);
+
   const { data: profiles = [] } = useGetAllProfiles();
   const { createProfile } = useCreateProfile();
   const { createEvent } = useCreateEvent();
-
-  const setActiveTimezone = useTimezoneStore((state) => state.setActiveTimezone);
 
   const [newProfileName, setNewProfileName] = useState("");
   const [open, setOpen] = useState(false);
@@ -27,6 +30,15 @@ function CreateEventForm() {
 
   const handleCreate = (e) => {
     e.preventDefault();
+    if (!activeProfileId) {
+        toast.error("No active profile to create an event");
+        return;
+    }
+
+    if (eventData.profiles.length === 0) {
+        toast.error("Select at least one profile for the event");
+        return;
+    }
     createEvent(eventData);
   };
 
